@@ -1,0 +1,26 @@
+# Render Blueprint — DK Coaching (pre-built; no build step needed)
+services:
+  - type: web
+    name: dk-coaching
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm run start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PUPPETEER_SKIP_DOWNLOAD
+        value: "true"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dk-coaching-db
+          property: connectionString
+      - key: BLOG_ADMIN_PASSWORD
+        sync: false
+
+databases:
+  - name: dk-coaching-db
+    plan: basic-256mb
+    databaseName: dkcoaching
+    user: dkcoaching
