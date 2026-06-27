@@ -8871,7 +8871,6 @@ to{transform:translateX(-50%)}}
 .claude-page .about-recognition.is-centered .recognition-list p { padding-left: 0; }
 .claude-page .about-recognition.is-centered .recognition-list p::before { display: none; }
 .claude-page .about-recognition.is-centered .section-label { justify-content: center; }
-.claude-page .btn-terracotta.contact-send-btn { display: block !important; width: fit-content !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; }
 </style>
 </head>
 <body>
@@ -10117,9 +10116,11 @@ function ContactPage() {
                 </select>
               </div>
               <div className="form-group"><label className="form-label">Message</label><textarea name="message" placeholder="What's bringing you here right now? You don't need to have it all figured out." required className="form-textarea" /></div>
-              <button type="submit" className="btn-terracotta contact-send-btn" disabled={state === 'submitting'}>
-                {state === 'submitting' ? 'Sending...' : 'Send Message'}
-              </button>
+              <div style={{ textAlign: 'center' }}>
+                <button type="submit" className="btn-terracotta contact-send-btn" disabled={state === 'submitting'}>
+                  {state === 'submitting' ? 'Sending...' : 'Send Message'}
+                </button>
+              </div>
               <p style={{ fontSize: '0.8rem', color: 'var(--muted)', marginTop: '1rem', textAlign: 'center' }}>I personally read every message and will get back to you within 48 hours.</p>
             </form>
           )}
