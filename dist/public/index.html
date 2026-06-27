@@ -1620,7 +1620,7 @@
 
   /* 3. TRANSFORMATION QUOTE */
   .transformation{background:#E4DBD0;padding:5rem 5rem 4rem;position:relative;overflow:hidden;}
-  .transformation::before{content:'C';font-family:'Playfair Display',serif;font-size:12rem;color:var(--terracotta);opacity:.18;position:absolute;top:-.5rem;left:50%;transform:translateX(-50%);line-height:1;pointer-events:none;}
+  .transformation::before{content:'DK';font-family:'Playfair Display',serif;font-size:10rem;letter-spacing:.05em;color:var(--terracotta);opacity:.10;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);line-height:1;pointer-events:none;}
   .transformation blockquote{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.2vw,2rem);font-style:italic;color:var(--black);line-height:1.65;max-width:700px;margin:0 auto 1.5rem;text-align:center;position:relative;}
   .transformation cite{display:block;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terracotta);text-align:center;font-style:normal;}
 
@@ -9958,10 +9958,9 @@ function MediaPage() {
 
       <section className="media-youtube reveal">
         <div className="media-podcast-intro">
-          <a href="https://www.youtube.com/@devikakapoor1" target="_blank" rel="noopener noreferrer" className="yt-thumb-wrap">
-            <img loading="lazy" src={IMG + '/yt-thumb-latest.jpg'} alt="Devika Kapoor YouTube Channel" className="yt-thumb-img" />
-            <span className="yt-play-overlay">&#9654;</span>
-          </a>
+          <div className="yt-thumb-wrap" style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', borderRadius: '12px', overflow: 'hidden' }}>
+            <iframe src="https://www.youtube.com/embed/jR82-cs7joM" title="Devika Kapoor on YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}></iframe>
+          </div>
           <div className="media-podcast-about">
             <p className="section-label">YouTube</p>
             <h2>Designing your life in real time, not perfectly, but <em>honestly.</em></h2>
