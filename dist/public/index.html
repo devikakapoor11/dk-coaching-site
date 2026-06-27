@@ -8858,10 +8858,13 @@ to{transform:translateX(-50%)}}
     .audit-intro-hero > p { margin-left: auto; margin-right: auto; }
   }
 </style>
-<style id="dk-hero-lock">
+<style id="dk-fixes">
 .claude-page .hero-h1 .pill-br { display: inline !important; }
 .claude-page .hero-h1 { white-space: normal !important; }
 .claude-page .hero-sub { display: block !important; visibility: visible !important; }
+@media (max-width: 768px) {
+  .claude-page .contact-send-btn { display: block !important; width: fit-content !important; margin-left: auto !important; margin-right: auto !important; }
+}
 </style>
 </head>
 <body>
@@ -8994,8 +8997,8 @@ function SiteFooter() {
         <div className="footer-connect">
           <p className="footer-heading">Connect</p>
           <a href="mailto:devika@dkcoaching.co.uk">devika@dkcoaching.co.uk</a>
-          <a href="https://www.linkedin.com/in/devika-kapoor-dk/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://www.instagram.com/devika.dk/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.linkedin.com/in/devikakapoor1" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.instagram.com/dkcoaching_" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
       </div>
       <div className="footer-bottom">
@@ -9393,7 +9396,7 @@ function WorkByDesignPage() {
     ['logo-merseyrail.jpeg', 'Merseyrail'], ['logo-kings-trust.png', "King's Trust"], ['logo-catch22.jpeg', 'Catch 22'],
     ['logo-generator.png', 'Generator'], ['logo-reform-radio.png', 'Reform Radio'], ['logo-in4-group.jpeg', 'In4 Group'],
     ['logo-black-creative-trailblazers.png', 'Black Creative Trailblazers'], ['logo-she-innovates.jpeg', 'She Innovates'],
-    ['logo-cre8ing-vision.png', 'Cre8ing Vision'], ['logo-heads-uk.png', 'HEADS UK'], ['logo-variety-mode.jpeg', 'Variety Mode'],
+    ['logo-cre8ing-vision.png', 'Cre8ing Vision'], ['heads.svg', 'HEADS UK'], ['VM.svg', 'Variety Mode'],
     ['logo-rochdale-development-agency.jpeg', 'Rochdale Development Agency'],
   ];
   return (
@@ -10006,11 +10009,11 @@ function MediaPage() {
         <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '1.5rem' }}>If you want to stay in the work, this is where to find me</p>
         <h2 className="socials-title">SOCIALS</h2>
         <div className="socials-list">
-          <a href="https://www.instagram.com/devika.dk/" target="_blank" rel="noopener noreferrer" className="social-row reveal">
+          <a href="https://www.instagram.com/dkcoaching_" target="_blank" rel="noopener noreferrer" className="social-row reveal">
             <span className="social-icon-ig">&#9679;</span>
             <span className="social-name">Instagram</span>
           </a>
-          <a href="https://www.linkedin.com/in/devika-kapoor-dk/" target="_blank" rel="noopener noreferrer" className="social-row reveal">
+          <a href="https://www.linkedin.com/in/devikakapoor1" target="_blank" rel="noopener noreferrer" className="social-row reveal">
             <span className="social-icon-li">in</span>
             <span className="social-name">LinkedIn</span>
           </a>
