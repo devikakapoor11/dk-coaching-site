@@ -8859,6 +8859,10 @@ to{transform:translateX(-50%)}}
   }
 </style>
 <style id="dk-fixes">
+/* Center the mobile sticky-bar caption text (move toward centre, not hard-left) */
+@media (max-width: 768px) {
+  .claude-page .mobile-sticky p { flex: 1 1 auto !important; text-align: center !important; }
+}
 .claude-page .hero-h1 .pill-br { display: inline !important; }
 .claude-page .hero-h1 { white-space: normal !important; }
 .claude-page .hero-sub { display: block !important; visibility: visible !important; }
