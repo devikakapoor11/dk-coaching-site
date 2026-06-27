@@ -8866,6 +8866,11 @@ to{transform:translateX(-50%)}}
 .claude-page .hero-h1 .pill-br { display: inline !important; }
 .claude-page .hero-h1 { white-space: normal !important; }
 .claude-page .hero-sub { display: block !important; visibility: visible !important; }
+/* Center the "This is for you if" list + label on Live by Design */
+.claude-page .about-recognition.is-centered .recognition-list { text-align: center; }
+.claude-page .about-recognition.is-centered .recognition-list p { padding-left: 0; }
+.claude-page .about-recognition.is-centered .recognition-list p::before { display: none; }
+.claude-page .about-recognition.is-centered .section-label { justify-content: center; }
 @media (max-width: 768px) {
   .claude-page .contact-send-btn { display: block !important; width: fit-content !important; margin-left: auto !important; margin-right: auto !important; }
 }
@@ -9642,7 +9647,7 @@ function LiveByDesignPage() {
         <p className="c-testimonial-role">Resident Services Associate, Downing Living &middot; The Fernley</p>
       </section>
 
-      <section className="about-recognition reveal">
+      <section className="about-recognition reveal is-centered">
         <p className="section-label">This is for you if</p>
         <div className="recognition-list">
           <p>You're a Build to Rent operator looking to differentiate on lifestyle, not amenity lists</p>
