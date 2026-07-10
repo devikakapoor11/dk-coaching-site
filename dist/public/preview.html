@@ -8901,7 +8901,7 @@ window.dkMarkdown = function(md){
 const CALENDLY = 'https://calendly.com/devika-dkcoaching/introductory-call';
 
 function useHashRoute() {
-  const get = () => (window.location.hash.replace(/^#/, '') || '/');
+  const get = () => { const h = window.location.hash.replace(/^#/, ''); if (h) return h; if (window.location.pathname.replace(/\/+$/, '') === '/links') return '/links'; return '/'; };
   const [route, setRoute] = React.useState(get());
   React.useEffect(() => {
     const on = () => { setRoute(get()); window.scrollTo({ top: 0, behavior: 'auto' }); };
@@ -9119,6 +9119,8 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      <NewsletterSignup source="homepage" />
 
       <MobileSticky title="Free Introductory Call" sub="20 minutes · Free · No pressure" cta="Book Now" />
     </React.Fragment>
@@ -9966,6 +9968,18 @@ function MediaPage() {
         </div>
       </section>
 
+      <section className="media-podcast reveal">
+        <div className="media-podcast-about" style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
+          <p className="section-label">The Essays</p>
+          <h2>By Design with <em>Devika Kapoor.</em></h2>
+          <p>Honest writing on identity, self-trust and designing a life that actually fits. The thinking behind the coaching, as essays in your inbox.</p>
+          <p style={{ fontSize: '0.85rem', color: 'var(--muted)', lineHeight: '1.7', marginTop: '0.5rem' }}>Read first, subscribe if it resonates. No spam, no fluff.</p>
+          <div className="pod-platforms" style={{ justifyContent: 'center' }}>
+            <a href="https://devikakapoor1.substack.com" target="_blank" rel="noopener noreferrer" className="pod-platform-btn">Read on Substack</a>
+          </div>
+        </div>
+      </section>
+
       <section className="media-features">
         <p className="section-label">Guest Appearances</p>
         <h2 className="section-headline">As heard <em>on.</em></h2>
@@ -10131,28 +10145,15 @@ Object.assign(window, { MediaPage, TestimonialsPage, ContactPage });
    sample posts so the layouts render. */
 
 function NewsletterSignup({ source = 'blog' }) {
-  const [status, setStatus] = React.useState('idle');
-  const [nlEmail, setNlEmail] = React.useState('');
-  const submit = (e) => { e.preventDefault(); if(!nlEmail.trim())return; setStatus('success'); window.dkPost('/api/newsletter',{ email: nlEmail.trim(), source }).catch(()=>{}); };
   return (
     <section className="newsletter-signup reveal">
       <div className="newsletter-inner">
-        {status === 'success' ? (
-          <div className="newsletter-success">
-            <div className="newsletter-check">&#10003;</div>
-            <p>You're in. New posts straight to your inbox.</p>
-          </div>
-        ) : (
-          <React.Fragment>
-            <p className="section-label">Stay in the loop</p>
-            <h2>If this resonates, you'll want these in your <em>inbox.</em></h2>
-            <p className="newsletter-desc">No spam. No fluff. Just honest writing on identity, self-trust, and designing a life that actually fits.</p>
-            <form className="newsletter-form" onSubmit={submit}>
-              <input type="email" placeholder="Your email address" value={nlEmail} onChange={e=>setNlEmail(e.target.value)} required />
-              <button type="submit">Subscribe</button>
-            </form>
-          </React.Fragment>
-        )}
+        <p className="section-label">The Essays</p>
+        <h2>By Design with <em>Devika Kapoor.</em></h2>
+        <p className="newsletter-desc">No spam. No fluff. Just honest writing on identity, self-trust, and designing a life that actually fits. The thinking behind the coaching, free on Substack.</p>
+        <div className="newsletter-form" style={{ justifyContent: 'center' }}>
+          <a href="https://devikakapoor1.substack.com" target="_blank" rel="noopener noreferrer" className="btn-terracotta">Read on Substack</a>
+        </div>
       </div>
     </section>
   );
@@ -10631,9 +10632,32 @@ Object.assign(window, { AuditPage, PosSnapshotPage });
 
 </script>
 <script type="text/babel">
+  function LinksPage() {
+    const wrap = { minHeight: '100vh', background: 'var(--off-white, #F8F4EE)', padding: '56px 20px 64px', fontFamily: "'Instrument Sans', sans-serif", color: 'var(--black, #0E0D0B)' };
+    const card = { display: 'block', maxWidth: '420px', margin: '0 auto 14px', padding: '16px 20px', borderRadius: '10px', textDecoration: 'none', textAlign: 'center', border: '1px solid rgba(14,13,11,.12)', background: '#FFFFFF', color: 'var(--black, #0E0D0B)' };
+    const cardPrimary = Object.assign({}, card, { background: 'var(--terracotta, #A8522A)', border: '1px solid var(--terracotta, #A8522A)', color: '#F8F4EE' });
+    const sub = { display: 'block', fontSize: '12.5px', opacity: 0.72, marginTop: '3px', letterSpacing: '0.01em' };
+    const label = { fontSize: '15.5px', fontWeight: 600, letterSpacing: '0.02em' };
+    return (
+      <div style={wrap}>
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '30px', margin: 0 }}>DK Coaching</p>
+          <p style={{ fontSize: '13px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--muted, #605850)', margin: '8px 0 0' }}>Devika Kapoor &middot; Life Design Coach</p>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: 'italic', fontSize: '17px', color: 'var(--terracotta, #A8522A)', margin: '10px 0 0' }}>Living by design, not by default.</p>
+        </div>
+        <a href="https://calendly.com/devika-dkcoaching/introductory-call" target="_blank" rel="noopener noreferrer" style={cardPrimary}><span style={label}>Book an Introductory Call</span><span style={sub}>20 minutes &middot; Free &middot; No pressure</span></a>
+        <a href="#/audit" style={card}><span style={label}>Take the Life Design Audit</span><span style={sub}>Free quiz &middot; 4 minutes &middot; 6 life areas</span></a>
+        <a href="https://devikakapoor1.substack.com" target="_blank" rel="noopener noreferrer" style={card}><span style={label}>Read the Essays</span><span style={sub}>By Design with Devika Kapoor &middot; Substack</span></a>
+        <a href="#/self-by-design" style={card}><span style={label}>Explore 1:1 Coaching</span><span style={sub}>Self by Design&trade;</span></a>
+        <a href="#/" style={card}><span style={label}>dkcoaching.co.uk</span><span style={sub}>Everything else</span></a>
+      </div>
+    );
+  }
+
   function App() {
     const route = useHashRoute();
     const R = window;
+    if (route === '/links') { return <LinksPage />; }
     const map = {
       '/': R.HomePage,
       '/about': R.AboutPage,
