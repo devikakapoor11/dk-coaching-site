@@ -9,6 +9,11 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-L60ZTZH57M');
+  window.addEventListener('hashchange', function () {
+    setTimeout(function () {
+      gtag('event', 'page_view', { page_location: location.href, page_title: document.title });
+    }, 200);
+  });
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
