@@ -32,7 +32,6 @@
 <meta name="twitter:title" content="DK Coaching, Life Design Coach | Manchester, UK" />
 <meta name="twitter:description" content="Life design coaching with Devika Kapoor in Manchester. One to one coaching, career workshops and resident development programmes, all built on one idea: living by design, not by default." />
 <meta name="twitter:image" content="https://dkcoaching.co.uk/og-default.png" />
-<link rel="canonical" href="https://dkcoaching.co.uk/" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -8938,6 +8937,26 @@ to{transform:translateX(-50%)}}
 </style>
 </head>
 <body>
+<noscript>
+<h1>DK Coaching, Life Design Coach in Manchester</h1>
+<p>DK Coaching is the practice of Devika Kapoor, a Life Design Coach and Human Development Consultant based in Manchester, United Kingdom. She works with individuals and organisations on one idea: living by design, not by default.</p>
+<h2>Method</h2>
+<p>Every engagement follows the same three steps: Understand, Reframe, Design. The signature framework is the Personal Operating System, a way of making how you operate visible so it can be redesigned deliberately.</p>
+<h2>The three pillars of By Design</h2>
+<ul>
+<li>Self by Design: one to one life design coaching for individuals in transition.</li>
+<li>Work by Design: career and leadership workshops for organisations and teams.</li>
+<li>Live by Design: resident development programmes for Build to Rent operators.</li>
+</ul>
+<h2>Coaching packages</h2>
+<ul>
+<li>Clarity Intensive, &pound;250, a single 90 minute session.</li>
+<li>The Pivot Pack, &pound;550, three sessions.</li>
+<li>Three month programme, &pound;1,500, six coaching sessions plus one strategy session.</li>
+</ul>
+<h2>Contact</h2>
+<p>Book an Introductory Call at dkcoaching.co.uk or email devika@dkcoaching.co.uk. Serving Manchester and Greater Manchester, and working remotely across the United Kingdom.</p>
+</noscript>
 <div id="root"></div>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -10820,7 +10839,7 @@ Object.assign(window, { AuditPage, PosSnapshotPage });
       document.title = m.title;
       const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
       set('meta[name="description"]', 'content', m.desc);
-      set('link[rel="canonical"]', 'href', SITE_BASE + (path === '/' ? '/' : path));
+      (() => { let l = document.querySelector('link[rel="canonical"]'); if (!l) { l = document.createElement('link'); l.setAttribute('rel', 'canonical'); document.head.appendChild(l); } l.setAttribute('href', SITE_BASE + (path === '/' ? '/' : path)); })();
       set('meta[property="og:title"]', 'content', m.title);
       set('meta[property="og:description"]', 'content', m.desc);
       set('meta[property="og:url"]', 'content', SITE_BASE + (path === '/' ? '/' : path));
