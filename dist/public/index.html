@@ -10801,10 +10801,100 @@ Object.assign(window, { AuditPage, PosSnapshotPage });
   META['/blog/post'] = META['/blog'];
   META['/life-design-audit'] = META['/audit'];
 
+  function AdminPage() {
+    const [pw, setPw] = React.useState('');
+    const [title, setTitle] = React.useState('');
+    const [slug, setSlug] = React.useState('');
+    const [slugTouched, setSlugTouched] = React.useState(false);
+    const [excerpt, setExcerpt] = React.useState('');
+    const [content, setContent] = React.useState('');
+    const [publish, setPublish] = React.useState(true);
+    const [state, setState] = React.useState('idle');
+    const [msg, setMsg] = React.useState('');
+    const [postSlug, setPostSlug] = React.useState('');
+    React.useEffect(() => {
+      document.title = 'Blog admin | DK Coaching';
+      let m = document.querySelector('meta[name="robots"]');
+      if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'robots'); document.head.appendChild(m); }
+      m.setAttribute('content', 'noindex, nofollow');
+    }, []);
+    const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
+    const onTitle = (v) => { setTitle(v); if (!slugTouched) setSlug(slugify(v)); };
+    const submit = (e) => {
+      e.preventDefault();
+      if (!pw) { setState('error'); setMsg('Enter your admin password first.'); return; }
+      if (!title.trim() || !slug.trim() || !excerpt.trim() || !content.trim()) { setState('error'); setMsg('Title, slug, excerpt and content are all required.'); return; }
+      setState('saving'); setMsg('');
+      fetch('/api/blog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': pw },
+        body: JSON.stringify({ title: title.trim(), slug: slug.trim(), excerpt: excerpt.trim(), content: content, published: publish, publishedAt: new Date().toISOString() })
+      }).then(function (r) {
+        if (r.status === 401) { setState('error'); setMsg('That password was not accepted. Check it in Render under Environment.'); return null; }
+        if (r.status === 400) { setState('error'); setMsg('The server rejected the post. A post with that web address may already exist, so try a different slug.'); return null; }
+        if (!r.ok) { setState('error'); setMsg('Could not save the post. Server returned ' + r.status + '.'); return null; }
+        return r.json();
+      }).then(function (d) {
+        if (!d) return;
+        setPostSlug(d.slug || slug); setState('success');
+      }).catch(function () { setState('error'); setMsg('Could not reach the server. Check your connection and try again.'); });
+    };
+    const box = { width: '100%', padding: '.8rem 1rem', border: '1px solid rgba(14,13,11,.2)', background: '#fff', fontFamily: "'Instrument Sans',sans-serif", fontSize: '.95rem', color: 'var(--black)' };
+    const lbl = { display: 'block', fontSize: '.7rem', letterSpacing: '.14em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: '.5rem' };
+    const grp = { marginBottom: '1.5rem' };
+    if (state === 'success') {
+      return (
+        <div style={{ minHeight: '100vh', background: 'var(--off-white)', padding: '5rem 2rem' }}>
+          <div style={{ maxWidth: '640px', margin: '0 auto' }}>
+            <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: '2.2rem', marginBottom: '1rem' }}>Published.</h1>
+            <p style={{ marginBottom: '2rem' }}>Your post is live at <a href={'/blog/' + postSlug} style={{ color: 'var(--terracotta)' }}>dkcoaching.co.uk/blog/{postSlug}</a></p>
+            <a className="btn-terracotta" href={'/blog/' + postSlug}>View the post</a>
+            <p style={{ marginTop: '2rem' }}><button type="button" className="btn-outline" onClick={() => { setState('idle'); setTitle(''); setSlug(''); setSlugTouched(false); setExcerpt(''); setContent(''); }}>Write another</button></p>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div style={{ minHeight: '100vh', background: 'var(--off-white)', padding: '4rem 2rem' }}>
+        <form onSubmit={submit} style={{ maxWidth: '760px', margin: '0 auto' }}>
+          <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: '2.2rem', marginBottom: '.5rem' }}>New blog post</h1>
+          <p style={{ color: 'var(--muted)', marginBottom: '2.5rem', fontSize: '.9rem' }}>Content accepts Markdown. Use ## for a heading, **bold** for bold, and - for a bullet.</p>
+          <div style={grp}>
+            <label style={lbl}>Admin password</label>
+            <input type="password" value={pw} onChange={(e) => setPw(e.target.value)} style={box} autoComplete="current-password" placeholder="From Render, under Environment" />
+          </div>
+          <div style={grp}>
+            <label style={lbl}>Title</label>
+            <input type="text" value={title} onChange={(e) => onTitle(e.target.value)} style={box} />
+          </div>
+          <div style={grp}>
+            <label style={lbl}>Web address (slug)</label>
+            <input type="text" value={slug} onChange={(e) => { setSlugTouched(true); setSlug(e.target.value); }} style={box} />
+            <p style={{ fontSize: '.78rem', color: 'var(--muted)', marginTop: '.4rem' }}>dkcoaching.co.uk/blog/{slug || '...'}</p>
+          </div>
+          <div style={grp}>
+            <label style={lbl}>Excerpt</label>
+            <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} style={Object.assign({}, box, { minHeight: '90px', resize: 'vertical' })} />
+          </div>
+          <div style={grp}>
+            <label style={lbl}>Content</label>
+            <textarea value={content} onChange={(e) => setContent(e.target.value)} style={Object.assign({}, box, { minHeight: '420px', resize: 'vertical', lineHeight: '1.6' })} />
+          </div>
+          <div style={grp}>
+            <label style={{ fontSize: '.9rem' }}><input type="checkbox" checked={publish} onChange={(e) => setPublish(e.target.checked)} style={{ marginRight: '.6rem' }} />Publish immediately (untick to save as a draft)</label>
+          </div>
+          {state === 'error' ? (<p style={{ color: '#a8322a', marginBottom: '1.5rem' }}>{msg}</p>) : null}
+          <button type="submit" className="btn-terracotta" disabled={state === 'saving'}>{state === 'saving' ? 'Saving...' : (publish ? 'Publish post' : 'Save draft')}</button>
+        </form>
+      </div>
+    );
+  }
+
   function App() {
     const route = useHashRoute();
     const R = window;
     if (route === '/links') { return <LinksPage />; }
+    if (route === '/admin' || route === '/admin/blog') { return <AdminPage />; }
     const map = {
       '/': R.HomePage,
       '/about': R.AboutPage,
