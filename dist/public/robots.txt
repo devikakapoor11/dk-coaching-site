@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://dkcoaching.co.uk/sitemap.xml
+Sitemap: https://dkcoaching.co.uk/sitemap-pages.xml
