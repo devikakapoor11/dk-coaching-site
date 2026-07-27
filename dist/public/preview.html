@@ -8914,7 +8914,15 @@ window.dkMarkdown = function(md){
 const CALENDLY = 'https://calendly.com/devika-dkcoaching/introductory-call';
 
 function useHashRoute() {
-  const get = () => { const h = window.location.hash.replace(/^#/, ''); if (h) return h; if (window.location.pathname.replace(/\/+$/, '') === '/links') return '/links'; return '/'; };
+  const get = () => {
+    const h = window.location.hash.replace(/^#/, '');
+    if (h) return h;
+    const ALIAS = { '/coaching': '/self-by-design', '/for-organisations': '/work-by-design', '/speaking': '/work-by-design', '/workshops': '/work-by-design', '/quiz': '/audit', '/pos-audit': '/pos-snapshot' };
+    let p = window.location.pathname.replace(/\/+$/, '') || '/';
+    if (ALIAS[p]) p = ALIAS[p];
+    if (/^\/blog\/[^/]+$/.test(p)) return '/blog/post';
+    return p;
+  };
   const [route, setRoute] = React.useState(get());
   React.useEffect(() => {
     const on = () => { setRoute(get()); window.scrollTo({ top: 0, behavior: 'auto' }); };
@@ -10230,9 +10238,9 @@ function BlogPostPage() {
   const [post, setPost] = React.useState(undefined);
   React.useEffect(() => {
     const q = (window.location.hash.split('?')[1] || '');
-    const slug = new URLSearchParams(q).get('slug');
+    const slug = new URLSearchParams(q).get('slug') || (window.location.pathname.match(/^\/blog\/([^/]+)\/?$/) || [])[1];
     if (!slug) { setPost(null); return; }
-    fetch('/api/blog/' + encodeURIComponent(slug)).then(r => r.ok ? r.json() : null).then(setPost).catch(() => setPost(null));
+    fetch('/api/blog/' + encodeURIComponent(slug)).then(r => r.ok ? r.json() : null).then(p => { setPost(p); if (p && p.title) document.title = p.title + ' | DK Coaching'; }).catch(() => setPost(null));
   }, []);
 
   return (
@@ -10646,6 +10654,7 @@ Object.assign(window, { AuditPage, PosSnapshotPage });
 </script>
 <script type="text/babel">
   function LinksPage() {
+    React.useEffect(() => { document.title = 'Links | DK Coaching'; }, []);
     const wrap = { minHeight: '100vh', background: 'var(--off-white, #F8F4EE)', padding: '56px 20px 64px', fontFamily: "'Instrument Sans', sans-serif", color: 'var(--black, #0E0D0B)' };
     const card = { display: 'block', maxWidth: '420px', margin: '0 auto 14px', padding: '16px 20px', borderRadius: '10px', textDecoration: 'none', textAlign: 'center', border: '1px solid rgba(14,13,11,.12)', background: '#FFFFFF', color: 'var(--black, #0E0D0B)' };
     const cardPrimary = Object.assign({}, card, { background: 'var(--terracotta, #A8522A)', border: '1px solid var(--terracotta, #A8522A)', color: '#F8F4EE' });
@@ -10668,6 +10677,28 @@ Object.assign(window, { AuditPage, PosSnapshotPage });
       </div>
     );
   }
+
+  const SITE_BASE = 'https://dkcoaching.co.uk';
+  const META = {
+    '/': { title: "DK Coaching | Life Design Coach | Manchester, UK", desc: "Devika Kapoor is a life design coach based in Manchester, helping ambitious people redesign their lives through 1:1 coaching, workshops and speaking. Build confidence, pivot your career and create a life that fits." },
+    '/about': { title: "About Devika Kapoor | DK Coaching", desc: "Meet Devika Kapoor, a life design coach based in Manchester. From sales and marketing to coaching, helping ambitious people redesign their lives through identity work, story reframing and real accountability." },
+    '/self-by-design': { title: "Self by Design\u2122 | 1:1 Life Design Coaching with Devika Kapoor | DK Coaching", desc: "Self by Design\u2122 is the 1:1 coaching pillar of By Design\u2122. Identity-led work with Devika Kapoor. Pivot Sessions and the signature 3-month Self by Design\u2122 programme. Start with a free introductory call." },
+    '/work-by-design': { title: "Work by Design\u2122 | Workshops, Programmes & Corporate Partnerships | DK Coaching", desc: "Work by Design\u2122 is Devika Kapoor's pillar for career, purpose and how people work. Workshops, multi-session programmes and corporate partnerships. Trusted by NHS, Reckitt, Merseyrail, King's Trust." },
+    '/work-by-design-coaching': { title: "Work by Design\u2122 | 1:1 Coaching for Freelancers & Founders | DK Coaching", desc: "Work by Design\u2122 1:1 coaching with Devika Kapoor. For freelancers and founders redesigning how they work independently, built around how you actually operate. Start with a free introductory call." },
+    '/live-by-design': { title: "Live by Design\u2122 | Resident Life Design Coach for Build to Rent | DK Coaching", desc: "Live by Design\u2122 is Devika Kapoor's Resident Life Design Coach offering for Build to Rent and coliving developers. An embedded in-house coach who turns a building into a place people choose, and stay." },
+    '/clarity-intensive': { title: "Life Design Clarity Intensive | \u00a3250 | DK Coaching", desc: "A focused 90-minute coaching session with Devika Kapoor. Cut through the noise, map your Personal Operating System and get clear on your next move. \u00a3250 via Zoom." },
+    '/pivot-pack': { title: "The Pivot Pack | 3 Coaching Sessions, \u00a3550 | DK Coaching", desc: "Three coaching sessions for people at a crossroads. Identity deep-dive, story reframing and a personalised pivot plan. \u00a3550 with voice note support between sessions." },
+    '/life-design-inside-out': { title: "Life Design from the Inside Out | 3-Month Programme, \u00a31,500 | DK Coaching", desc: "The full life redesign programme. 3 months of deep work: a Personal Operating System audit, redesigning how you operate, with implementation and accountability alongside Devika Kapoor. \u00a31,500." },
+    '/media': { title: "Media | Podcast, YouTube & Press | DK Coaching", desc: "The Pivot Project podcast, YouTube channel, guest appearances and press features. Conversations about life design, career pivots, identity and building something on your own terms." },
+    '/testimonials': { title: "Testimonials | DK Coaching", desc: "Read what coaching clients and organisations say about working with Devika Kapoor. Real stories of career pivots, confidence breakthroughs and meaningful change." },
+    '/contact': { title: "Contact Devika | DK Coaching", desc: "Get in touch with Devika Kapoor about 1:1 coaching, workshops, speaking, hosting or media enquiries. Based in Manchester, working with clients across the UK." },
+    '/blog': { title: "Blog | DK Coaching", desc: "Insights on life design, career pivots, identity and personal growth from Devika Kapoor. Practical advice for ambitious people ready to redesign their lives." },
+    '/audit': { title: "Life Design Audit | DK Coaching", desc: "Take this 4-minute audit to discover whether you're living by design or by default across 6 key areas of your life." },
+    '/pos-snapshot': { title: "The Personal Operating System Snapshot | DK Coaching", desc: "A reflective diagnostic for how you naturally operate. Fifteen statements across five dimensions. For people who've outgrown their default settings." },
+    '/links': { title: "Links | DK Coaching", desc: "Devika Kapoor, Life Design Coach. Start the Life Design Audit, book an Introductory Call, or explore coaching, essays and The Pivot Project podcast." },
+  };
+  META['/blog/post'] = META['/blog'];
+  META['/life-design-audit'] = META['/audit'];
 
   function App() {
     const route = useHashRoute();
@@ -10692,7 +10723,26 @@ Object.assign(window, { AuditPage, PosSnapshotPage });
       '/life-design-audit': R.AuditPage,
       '/pos-snapshot': R.PosSnapshotPage,
     };
-    const Page = map[route] || R.HomePage;
+    const Page = map[route.split('?')[0]] || R.HomePage;
+
+    // Per-route document metadata (title, description, canonical, OG), restored
+    // from the original React app's SEO component so search re-indexes each page.
+    React.useEffect(() => {
+      const key = route.split('?')[0];
+      const m = META[key] || META['/'];
+      let path = META[key] ? key : '/';
+      if (key === '/blog/post') {
+        const s = (window.location.pathname.match(/^\/blog\/([^/]+)\/?$/) || [])[1];
+        path = s ? '/blog/' + s : '/blog';
+      }
+      document.title = m.title;
+      const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
+      set('meta[name="description"]', 'content', m.desc);
+      set('link[rel="canonical"]', 'href', SITE_BASE + (path === '/' ? '/' : path));
+      set('meta[property="og:title"]', 'content', m.title);
+      set('meta[property="og:description"]', 'content', m.desc);
+      set('meta[property="og:url"]', 'content', SITE_BASE + (path === '/' ? '/' : path));
+    }, [route]);
 
     // Reveal-on-scroll, re-armed on route change.
     // Anything already within the viewport at mount is revealed immediately
