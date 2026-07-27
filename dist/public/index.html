@@ -10828,10 +10828,17 @@ Object.assign(window, { AuditPage, PosSnapshotPage });
       fetch('/api/blog', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-admin-password': pw },
-        body: JSON.stringify({ title: title.trim(), slug: slug.trim(), excerpt: excerpt.trim(), content: content, published: publish, publishedAt: new Date().toISOString() })
+        body: JSON.stringify({ title: title.trim(), slug: slug.trim(), excerpt: excerpt.trim(), content: content, published: publish })
       }).then(function (r) {
         if (r.status === 401) { setState('error'); setMsg('That password was not accepted. Check it in Render under Environment.'); return null; }
-        if (r.status === 400) { setState('error'); setMsg('The server rejected the post. A post with that web address may already exist, so try a different slug.'); return null; }
+        if (r.status === 400) {
+          return r.json().catch(function () { return {}; }).then(function (d) {
+            var f = ((d && d.errors) || []).map(function (x) { return (x.path || []).join('.'); }).filter(Boolean).join(', ');
+            setState('error');
+            setMsg(f ? ('The server rejected these fields: ' + f + '. If another post already uses that web address, change the slug.') : 'The server rejected the post. If another post already uses that web address, change the slug.');
+            return null;
+          });
+        }
         if (!r.ok) { setState('error'); setMsg('Could not save the post. Server returned ' + r.status + '.'); return null; }
         return r.json();
       }).then(function (d) {
