@@ -8964,7 +8964,7 @@ to{transform:translateX(-50%)}}
 <script type="text/babel" data-file="chrome">
 /* --- backend helpers (wired to live /api) --- */
 window.dkPost = (url, data) => fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) }).then(r => { if (!r.ok) { throw new Error('Request failed: ' + r.status); } return r; });
-window.dkTrack = (name, params) => { try { if (typeof gtag === 'function') { gtag('event', name, params || {}); } } catch (e) {} };
+window.dkTrack = (name, params) => { try { if (typeof gtag === 'function') { gtag('event', name, params || {}); } } catch (e) {} }; document.addEventListener('click', function (ev) { var a = ev.target && ev.target.closest ? ev.target.closest('a') : null; if (a && a.href && a.href.indexOf('calendly.com') > -1) { window.dkTrack('close_convert_lead', { link_url: a.href, source: 'calendly_click' }); } });
 window.dkFmtDate = (s) => { try { return new Date(s).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); } catch(e){ return ''; } };
 window.dkMarkdown = function(md){
   if(!md) return '';
@@ -9780,7 +9780,7 @@ function FaqQ({ q, a }) {
 /* Shared application form. `fields` controls which inputs show. */
 function ApplyForm({ testid, programme, fields = ['name', 'email', 'situation'], situationLabel, situationPlaceholder }) {
   const [state, setState] = React.useState('idle');
-  const submit = (e) => { e.preventDefault(); const f = new FormData(e.target); setState('submitting'); window.dkPost('/api/applications', { firstName: (f.get('firstName')||'').trim(), lastName: (f.get('lastName')||'').trim(), email: (f.get('email')||'').trim(), programme: programme || testid || 'Application', situation: (f.get('situation')||'').trim(), goals: (f.get('goals')||'').trim(), source: testid || 'apply' }).then(()=>{ window.dkTrack('programme_application', { form_type: 'application', programme: programme || testid || 'Application' }); setState('success'); }).catch(()=>setState('error')); };
+  const submit = (e) => { e.preventDefault(); const f = new FormData(e.target); setState('submitting'); window.dkPost('/api/applications', { firstName: (f.get('firstName')||'').trim(), lastName: (f.get('lastName')||'').trim(), email: (f.get('email')||'').trim(), programme: programme || testid || 'Application', situation: (f.get('situation')||'').trim(), goals: (f.get('goals')||'').trim(), source: testid || 'apply' }).then(()=>{ window.dkTrack('close_convert_lead', { form_type: 'application', programme: programme || testid || 'Application' }); setState('success'); }).catch(()=>setState('error')); };
   if (state === 'success') {
     return (
       <div className="form-success" style={{ display: 'block' }}>
@@ -10194,7 +10194,7 @@ function TestimonialsPage() {
 /* ---------- Contact ---------- */
 function ContactPage() {
   const [state, setState] = React.useState('idle');
-  const submit = (e) => { e.preventDefault(); const f = new FormData(e.target); setState('submitting'); window.dkPost('/api/inquiries', { firstName: (f.get('firstName')||'').trim(), lastName: (f.get('lastName')||'').trim(), email: (f.get('email')||'').trim(), subject: f.get('subject')||'', message: (f.get('message')||'').trim(), source: 'contact' }).then(()=>{ window.dkTrack('contact_enquiry', { form_type: 'contact' }); setState('success'); }).catch(()=>setState('error')); };
+  const submit = (e) => { e.preventDefault(); const f = new FormData(e.target); setState('submitting'); window.dkPost('/api/inquiries', { firstName: (f.get('firstName')||'').trim(), lastName: (f.get('lastName')||'').trim(), email: (f.get('email')||'').trim(), subject: f.get('subject')||'', message: (f.get('message')||'').trim(), source: 'contact' }).then(()=>{ window.dkTrack('close_convert_lead', { form_type: 'contact' }); setState('success'); }).catch(()=>setState('error')); };
   return (
     <React.Fragment>
       <section className="contact-hero-new">
@@ -10520,7 +10520,7 @@ function AuditPage() {
     });
     const sorted = [...areas].sort((a, b) => b.score - a.score);
     setResults({ pct, tier, areas, strongest: sorted[0], weakest: sorted[sorted.length - 1] });
-    window.dkPost('/api/audit-leads', { firstName: name, email, overallScore: pct, tier: tier.tierName, areaScores: areas.map(a => `${a.label}: ${a.score}%`).join(', '), marketingConsent: consent }).then(()=>window.dkTrack('audit_completed', { form_type: 'life_design_audit', tier: tier.tierName })).catch(()=>{});
+    window.dkPost('/api/audit-leads', { firstName: name, email, overallScore: pct, tier: tier.tierName, areaScores: areas.map(a => `${a.label}: ${a.score}%`).join(', '), marketingConsent: consent }).then(()=>window.dkTrack('qualify_lead', { form_type: 'life_design_audit', tier: tier.tierName })).catch(()=>{});
     setScreen('results');
     window.scrollTo(0, 0);
   };
