@@ -8964,7 +8964,7 @@ to{transform:translateX(-50%)}}
 <script type="text/babel" data-file="chrome">
 /* --- backend helpers (wired to live /api) --- */
 window.dkPost = (url, data) => fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) }).then(r => { if (!r.ok) { throw new Error('Request failed: ' + r.status); } return r; });
-window.dkTrack = (name, params) => { try { if (typeof gtag === 'function') { gtag('event', name, params || {}); } } catch (e) {} }; document.addEventListener('click', function (ev) { var a = ev.target && ev.target.closest ? ev.target.closest('a') : null; if (a && a.href && a.href.indexOf('calendly.com') > -1) { window.dkTrack('close_convert_lead', { link_url: a.href, source: 'calendly_click' }); } });
+window.dkTrack = (name, params) => { try { if (typeof gtag === 'function') { gtag('event', name, params || {}); } } catch (e) {} }; document.addEventListener('click', function (ev) { var a = ev.target && ev.target.closest ? ev.target.closest('a') : null; if (a && a.href && (a.href.indexOf('calendly.com') > -1 || a.href.indexOf('buy.stripe.com') > -1)) { window.dkTrack('close_convert_lead', { link_url: a.href, source: 'calendly_click' }); } });
 window.dkFmtDate = (s) => { try { return new Date(s).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); } catch(e){ return ''; } };
 window.dkMarkdown = function(md){
   if(!md) return '';
@@ -9832,8 +9832,7 @@ function ClarityIntensivePage() {
         <div className="lp-hero-inner reveal">
           <h1>Life Design Clarity <em>Intensive.</em></h1>
           <p>One 90-minute session to cut through the noise, understand what's actually going on, and get clear on your next move.</p>
-          <p className="lp-hero-accent">Not surface-level motivation. Real, structural clarity.</p>
-          <a href="#apply" className="btn-terracotta">Apply Now</a>
+          <p className="lp-hero-accent">Not surface-level motivation. Real, structural clarity.</p><a href="https://buy.stripe.com/3cI28k3n9gD3edR5b84Rq03" className="btn-terracotta">Book your session &middot; &pound;250</a> <a href="#apply" className="btn-outline">Prefer to talk first? Apply</a>
         </div>
       </section>
 
