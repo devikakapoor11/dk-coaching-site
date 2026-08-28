@@ -12149,15 +12149,6 @@ Object.assign(window, {
       margin: '10px 0 0'
     }
   }, "Living by design, not by default.")), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.youtube.com/watch?v=mShukxAXEsQ",
-    target: "_blank",
-    rel: "noopener noreferrer",
-    style: card
-  }, /*#__PURE__*/React.createElement("span", {
-    style: label
-  }, "My podcast interview with Will Graham"), /*#__PURE__*/React.createElement("span", {
-    style: sub
-  }, "New \xB7 The most honest conversation I\u2019ve had yet")), /*#__PURE__*/React.createElement("a", {
     href: "#/audit",
     style: cardPrimary
   }, /*#__PURE__*/React.createElement("span", {
@@ -12174,6 +12165,13 @@ Object.assign(window, {
   }, "Book an Introductory Call"), /*#__PURE__*/React.createElement("span", {
     style: sub
   }, "20 minutes \xB7 Free \xB7 No pressure")), /*#__PURE__*/React.createElement("a", {
+    href: "#/clarity-intensive",
+    style: card
+  }, /*#__PURE__*/React.createElement("span", {
+    style: label
+  }, "Book a Clarity Intensive"), /*#__PURE__*/React.createElement("span", {
+    style: sub
+  }, "90 minutes \xB7 One focused session \xB7 \xA3250")), /*#__PURE__*/React.createElement("a", {
     href: "#/self-by-design",
     style: card
   }, /*#__PURE__*/React.createElement("span", {
@@ -12181,6 +12179,15 @@ Object.assign(window, {
   }, "Explore 1:1 Coaching"), /*#__PURE__*/React.createElement("span", {
     style: sub
   }, "Self by Design\u2122")), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.youtube.com/watch?v=mShukxAXEsQ",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    style: card
+  }, /*#__PURE__*/React.createElement("span", {
+    style: label
+  }, "My podcast interview with Will Graham"), /*#__PURE__*/React.createElement("span", {
+    style: sub
+  }, "New \xB7 The most honest conversation I\u2019ve had yet")), /*#__PURE__*/React.createElement("a", {
     href: "#/",
     style: card
   }, /*#__PURE__*/React.createElement("span", {
@@ -12552,12 +12559,8 @@ function AdminPage() {
 function App() {
   const route = useHashRoute();
   const R = window;
-  if (route === '/links') {
-    return /*#__PURE__*/React.createElement(LinksPage, null);
-  }
-  if (route === '/admin' || route === '/admin/blog') {
-    return /*#__PURE__*/React.createElement(AdminPage, null);
-  }
+  const isLinks = route === '/links';
+  const isAdmin = route === '/admin' || route === '/admin/blog';
   const map = {
     '/': R.HomePage,
     '/about': R.AboutPage,
@@ -12582,6 +12585,7 @@ function App() {
   // Per-route document metadata (title, description, canonical, OG), restored
   // from the original React app's SEO component so search re-indexes each page.
   React.useEffect(() => {
+    if (isLinks || isAdmin) return;
     const key = route.split('?')[0];
     const m = META[key] || META['/'];
     let path = META[key] ? key : '/';
@@ -12633,6 +12637,12 @@ function App() {
     });
     return () => obs.disconnect();
   }, [route]);
+  if (isLinks) {
+    return /*#__PURE__*/React.createElement(LinksPage, null);
+  }
+  if (isAdmin) {
+    return /*#__PURE__*/React.createElement(AdminPage, null);
+  }
   return /*#__PURE__*/React.createElement("div", {
     className: "claude-page"
   }, /*#__PURE__*/React.createElement(SiteNav, null), Page ? /*#__PURE__*/React.createElement(Page, null) : /*#__PURE__*/React.createElement(HomePage, null), /*#__PURE__*/React.createElement(SiteFooter, null));
