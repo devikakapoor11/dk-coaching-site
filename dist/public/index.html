@@ -9086,7 +9086,8 @@ function useHashRoute() {
       '/speaking': '/work-by-design',
       '/workshops': '/work-by-design',
       '/quiz': '/audit',
-      '/pos-audit': '/pos-snapshot'
+      '/pos-audit': '/audit',
+      '/pos-snapshot': '/audit'
     };
     let p = window.location.pathname.replace(/\/+$/, '') || '/';
     if (ALIAS[p]) p = ALIAS[p];
@@ -12289,10 +12290,7 @@ const META = {
     title: "Life Design Audit | DK Coaching",
     desc: "Take this 4-minute audit to discover whether you're living by design or by default across 6 key areas of your life."
   },
-  '/pos-snapshot': {
-    title: "The Personal Operating System Snapshot | DK Coaching",
-    desc: "A reflective diagnostic for how you naturally operate. Fifteen statements across five dimensions. For people who've outgrown their default settings."
-  },
+  
   '/links': {
     title: "Links | DK Coaching",
     desc: "Devika Kapoor, Life & Work Design Coach. Start the Life Design Audit, book an Introductory Call, or explore coaching, essays and The Pivot Project podcast."
@@ -12585,8 +12583,7 @@ function App() {
     '/blog': R.BlogPage,
     '/blog/post': R.BlogPostPage,
     '/audit': R.AuditPage,
-    '/life-design-audit': R.AuditPage,
-    '/pos-snapshot': R.PosSnapshotPage
+    '/life-design-audit': R.AuditPage
   };
   const Page = map[route.split('?')[0]] || R.HomePage;
 
