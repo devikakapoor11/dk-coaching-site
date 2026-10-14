@@ -9493,6 +9493,12 @@ function FaqItem({
 /* ---------- Self by Design (/self-by-design) ---------- */
 function SelfByDesignPage() {
   const faqs = [{
+    q: "Is \xA31,500 a lot for coaching?",
+    a: "It is three months of work, seven sessions, and a plan you keep. Set against staying where you are for another year, it is not the expensive option. If the money is the obstacle, the instalments exist for that reason, and the Clarity Intensive exists so you can test whether we work well together for \xA3250."
+  }, {
+    q: "What if I want to start without talking to you first?",
+    a: "Book the Clarity Intensive. Ninety minutes, \xA3250, no call needed beforehand. Plenty of people start there and move up afterwards."
+  }, {
     q: "I'm not sure I need coaching. Maybe I just need to figure it out on my own.",
     a: "If figuring it out on your own was going to work, it would have worked by now. This is not about needing help. It is about giving yourself the space and structure to finally hear what you already know."
   }, {
@@ -9564,7 +9570,9 @@ function SelfByDesignPage() {
     className: "pkg-card-meta"
   }, "One 90-minute session"), /*#__PURE__*/React.createElement("p", {
     className: "pkg-card-desc"
-  }, "One decision, one challenge, one next move. Leave clear on what's actually going on and what to do next."), /*#__PURE__*/React.createElement("span", {
+  }, "One decision, one challenge, one next move. Leave clear on what's actually going on and what to do next."), /*#__PURE__*/React.createElement("p", {
+    className: "pkg-card-meta"
+  }, "Already know this is what you need? You can book it directly."), /*#__PURE__*/React.createElement("span", {
     className: "pkg-card-link"
   }, "Explore")), /*#__PURE__*/React.createElement("a", {
     href: "#/pivot-pack",
@@ -9597,6 +9605,8 @@ function SelfByDesignPage() {
   }, "\xA31,500"), /*#__PURE__*/React.createElement("p", {
     className: "pkg-card-meta"
   }, "1 x 2-hour Strategy Session + 6 x 90-min over 3 months"), /*#__PURE__*/React.createElement("p", {
+    className: "pkg-card-meta"
+  }, "Or three monthly payments of \xA3500, at no extra cost"), /*#__PURE__*/React.createElement("p", {
     className: "pkg-card-desc"
   }, "A deeper redesign. Understand how you naturally operate and rebuild your life around it. Stop overriding yourself."), /*#__PURE__*/React.createElement("span", {
     className: "pkg-card-link"
@@ -9609,6 +9619,7 @@ function SelfByDesignPage() {
       tier: 'Clarity',
       whoFor: '\u201CI need clarity.\u201D',
       price: '£250',
+      note: 'Already know this is what you need? You can book it directly.',
       href: '#/clarity-intensive'
     }, {
       name: 'The Pivot Pack',
@@ -9621,6 +9632,7 @@ function SelfByDesignPage() {
       tier: 'Transformation',
       whoFor: '\u201CI keep ending up in places that don\u2019t fit.\u201D',
       price: '£1,500',
+      note: 'Or three monthly payments of \u00a3500, at no extra cost',
       href: '#/life-design-inside-out',
       feature: true
     }];
@@ -9642,7 +9654,9 @@ function SelfByDesignPage() {
       className: "pkg-mcard-price"
     }, c.price)), /*#__PURE__*/React.createElement("p", {
       className: "pkg-mcard-for"
-    }, c.whoFor)), /*#__PURE__*/React.createElement("dl", {
+    }, c.whoFor), c.note ? /*#__PURE__*/React.createElement("p", {
+      className: "pkg-mcard-for"
+    }, c.note) : null), /*#__PURE__*/React.createElement("dl", {
       className: "pkg-mcard-rows"
     }, rows.map((r, ri) => /*#__PURE__*/React.createElement("div", {
       key: ri,
