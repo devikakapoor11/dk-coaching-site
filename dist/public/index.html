@@ -8949,6 +8949,7 @@ to{transform:translateX(-50%)}}
 .claude-page .about-recognition.is-centered .recognition-list p::before { display: none; }
 .claude-page .about-recognition.is-centered .section-label { justify-content: center; }
 </style>
+<style id="dk-conv-fixes">@media (max-width: 768px){.claude-page .c-hero-light.c-hero-split .hero-right img{height:45vh!important;max-height:45vh!important;width:100%!important;object-fit:cover!important;object-position:center 100%!important}}</style>
 </head>
 <body>
 <noscript>
@@ -9016,6 +9017,7 @@ window.dkFmtDate = s => {
 };
 window.dkMarkdown = function (md) {
   if (!md) return '';
+  md = md.replace(/https:\/\/calendly\.com\/devika-dkcoaching\/30min/g, 'https://calendly.com/devika-dkcoaching/introductory-call').replace(/Book a Free Alignment Call/g, 'Book a Free Introductory Call').replace(/\[([^\]]*Introductory Call[^\]]*)\]\((?:https?:\/\/(?:www\.)?dkcoaching\.co\.uk)?\/contact\)/g, '[$1](https://calendly.com/devika-dkcoaching/introductory-call)');
   md = md.replace(/\[cta\]\(([^)]+)\)\[([^\]]+)\]/g, (m, t, u) => `\n<p><a class="btn-terracotta" href="${u}" target="_blank" rel="noopener noreferrer">${t}</a></p>\n`);
   md = md.replace(/\[audit\]/g, '\n<p><a class="btn-terracotta" href="#/audit">Take the free Life Design Audit</a></p>\n');
   const esc = x => x;
@@ -9255,7 +9257,7 @@ function MobileSticky({
   }, ext ? {
     target: '_blank',
     rel: 'noopener noreferrer'
-  } : {}), cta || 'Book Now'));
+  } : {}), cta || 'Book a call'));
 }
 Object.assign(window, {
   CALENDLY,
@@ -9280,14 +9282,20 @@ function HomePage() {
     className: "pill-br"
   }), "not by ", /*#__PURE__*/React.createElement("em", null, "default.")), /*#__PURE__*/React.createElement("p", {
     className: "hero-sub"
-  }, "You've done everything right. Ticked the boxes. Hit the milestones. But something still feels off, like you're living someone else's version of your life. ", /*#__PURE__*/React.createElement("em", {
+  }, "You've done everything right and it still doesn't feel like yours. ", /*#__PURE__*/React.createElement("em", {
     className: "hero-sub-pivot"
-  }, "This is where we change that."), " I help people make sense of themselves, then design a life and work that actually fit, from 1:1 Life Design coaching in Manchester to workshops and programmes for organisations across the UK."), /*#__PURE__*/React.createElement("a", {
+  }, "This is where we change that."), " I help people make sense of themselves, fast. In a free 30-minute Introductory Call we can usually name what's really going on, and I'll tell you honestly what I'd recommend. 1:1 Life Design coaching in Manchester and online."), /*#__PURE__*/React.createElement("a", {
     href: CALENDLY,
     className: "btn-terracotta",
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "Book Your Introductory Call")), /*#__PURE__*/React.createElement("div", {
+  }, "Book Your Introductory Call"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: '0.9rem',
+      fontSize: '0.85rem',
+      opacity: 0.8
+    }
+  }, "30 minutes \xB7 Free \xB7 An honest recommendation")), /*#__PURE__*/React.createElement("div", {
     className: "hero-right"
   }, /*#__PURE__*/React.createElement("img", {
     src: IMG + '/devika-hero.jpg',
@@ -9418,8 +9426,8 @@ function HomePage() {
     source: "homepage"
   }), /*#__PURE__*/React.createElement(MobileSticky, {
     title: "Free Introductory Call",
-    sub: "30 minutes \xB7 Free \xB7 An honest recommendation",
-    cta: "Book Now"
+    sub: "Free 30-min Introductory Call",
+    cta: "Book a call"
   }));
 }
 window.HomePage = HomePage;
@@ -9484,8 +9492,8 @@ function AboutPage() {
     className: "about-final-sub"
   }, "30 minutes \xB7 Free \xB7 An honest recommendation")), /*#__PURE__*/React.createElement(MobileSticky, {
     title: "Introductory Call",
-    sub: "30 minutes \xB7 Free \xB7 An honest recommendation",
-    cta: "Book Now"
+    sub: "Free 30-min Introductory Call",
+    cta: "Book a call"
   }));
 }
 window.AboutPage = AboutPage;</script>
@@ -9537,7 +9545,7 @@ function SelfByDesignPage() {
     className: "hero-left"
   }, /*#__PURE__*/React.createElement("p", {
     className: "hero-eyebrow"
-  }, "By Design\u2122 \xB7 The Self Pillar"), /*#__PURE__*/React.createElement("h1", {
+  }, "By Design\u2122 \xB7 1:1 Life Design Coaching in Manchester"), /*#__PURE__*/React.createElement("h1", {
     className: "hero-h1"
   }, "Self by ", /*#__PURE__*/React.createElement("em", null, "Design.")), /*#__PURE__*/React.createElement("p", {
     className: "hero-sub"
@@ -9548,7 +9556,13 @@ function SelfByDesignPage() {
     className: "btn-terracotta",
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "Book an Introductory Call")), /*#__PURE__*/React.createElement("div", {
+  }, "Book an Introductory Call"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: '1.2rem',
+      fontSize: '0.95rem',
+      fontStyle: 'italic'
+    }
+  }, "\"The vision for my next step is so much clearer now.\" Jessica Stevens")), /*#__PURE__*/React.createElement("div", {
     className: "hero-right"
   }, /*#__PURE__*/React.createElement("img", {
     src: IMG + '/devika-coaching.jpg',
@@ -9785,7 +9799,7 @@ function SelfByDesignPage() {
     rel: "noopener noreferrer"
   }, "Start With a Conversation")), /*#__PURE__*/React.createElement(MobileSticky, {
     title: "Free Introductory Call",
-    sub: "30 minutes \xB7 Free \xB7 An honest recommendation",
+    sub: "Free 30-min Introductory Call",
     cta: "Book an Introductory Call"
   }));
 }
@@ -10440,23 +10454,6 @@ function ClarityIntensivePage() {
   }, /*#__PURE__*/React.createElement("p", {
     className: "section-label"
   }, "What clients say"), /*#__PURE__*/React.createElement("blockquote", null, "\"What can I say? Devika has changed my life. One coaching session and she gave me the self-belief, confidence and a kick up the booty.\""), /*#__PURE__*/React.createElement("cite", null, "Coaching Client")), /*#__PURE__*/React.createElement("section", {
-    id: "apply",
-    className: "lp-form-section"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "lp-form-inner"
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "section-label"
-  }, "Apply"), /*#__PURE__*/React.createElement("h2", {
-    className: "section-headline"
-  }, "Tell me a little about ", /*#__PURE__*/React.createElement("em", null, "where you are.")), /*#__PURE__*/React.createElement("p", {
-    style: {
-      marginBottom: '2.5rem'
-    }
-  }, "You'll hear back within 48 hours."), /*#__PURE__*/React.createElement(ApplyForm, {
-    testid: "clarity",
-    situationLabel: "What's going on and what are you hoping to get from this session?",
-    situationPlaceholder: "No need to polish it. Just tell me where you're at."
-  }))), /*#__PURE__*/React.createElement("section", {
     className: "unsure-cta reveal"
   }, /*#__PURE__*/React.createElement("p", {
     className: "section-label"
@@ -10505,7 +10502,7 @@ function PivotPackPage() {
       fontSize: '0.9rem'
     }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "#apply"
+    href: "#/contact"
   }, "Prefer to write? Send a note")))), /*#__PURE__*/React.createElement("section", {
     className: "lp-pitch"
   }, /*#__PURE__*/React.createElement("div", {
@@ -10545,23 +10542,6 @@ function PivotPackPage() {
   }, /*#__PURE__*/React.createElement("p", {
     className: "section-label"
   }, "What clients say"), /*#__PURE__*/React.createElement("blockquote", null, "\"I can't recommend her enough for the work she does, she pours her heart and soul into it and she's so so impactful.\""), /*#__PURE__*/React.createElement("cite", null, "Melodie Grace, Personal Trainer")), /*#__PURE__*/React.createElement("section", {
-    id: "apply",
-    className: "lp-form-section"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "lp-form-inner"
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "section-label"
-  }, "Apply"), /*#__PURE__*/React.createElement("h2", {
-    className: "section-headline"
-  }, "Tell me a little about ", /*#__PURE__*/React.createElement("em", null, "where you are.")), /*#__PURE__*/React.createElement("p", {
-    style: {
-      marginBottom: '2.5rem'
-    }
-  }, "You'll hear back within 48 hours."), /*#__PURE__*/React.createElement(ApplyForm, {
-    testid: "pivot",
-    situationLabel: "What's going on and what are you hoping to get from these sessions?",
-    situationPlaceholder: "No need to polish it. Just tell me where you're at."
-  }))), /*#__PURE__*/React.createElement("section", {
     className: "faq-section"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "reveal"
@@ -10620,7 +10600,7 @@ function LifeDesignInsideOutPage() {
       fontSize: '0.9rem'
     }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "#apply"
+    href: "#/contact"
   }, "Prefer to write? Send a note")))), /*#__PURE__*/React.createElement("section", {
     className: "lp-pitch"
   }, /*#__PURE__*/React.createElement("div", {
@@ -10945,8 +10925,8 @@ function MediaPage() {
     rel: "noopener noreferrer"
   }, "Book a Free Introductory Call")), /*#__PURE__*/React.createElement(MobileSticky, {
     title: "Free Introductory Call",
-    sub: "30 minutes \xB7 Free \xB7 An honest recommendation",
-    cta: "Book Now"
+    sub: "Free 30-min Introductory Call",
+    cta: "Book a call"
   }));
 }
 
@@ -10960,6 +10940,46 @@ function TestimonialsPage() {
   }, "Coaching Clients"), /*#__PURE__*/React.createElement("h1", null, "Real words. ", /*#__PURE__*/React.createElement("em", null, "Real change.")), /*#__PURE__*/React.createElement("p", {
     className: "t-hero-sub"
   }, "Organisations I've coached, facilitated and run workshops for. And the people whose lives have changed along the way.")), /*#__PURE__*/React.createElement("section", {
+    className: "c-testimonial-single reveal"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-quote"
+  }, "\"I couldn't have gotten as far as I am now if it weren't for the insight, resources and dedication of Devika helping me to redesign my life. The vision for my next step is so much clearer now. I HIGHLY recommend her.\""), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-name"
+  }, "Jessica Stevens"), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-role"
+  }, "Consultant at CGI \xB7 Northern Power Women Future Lister 2024")), /*#__PURE__*/React.createElement("section", {
+    className: "c-testimonial-single reveal"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-quote"
+  }, "\"She has the ability to pull out of you what you need to confidently take the first step in understanding who you are so you can become who you want to be, without making it overwhelming.\""), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-name"
+  }, "Rebecca Somoye"), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-role"
+  }, "Founder & Director, Wise Steps CIC")), /*#__PURE__*/React.createElement("section", {
+    className: "c-testimonial-single reveal"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-quote"
+  }, "\"Devika you really are the queen of cultivating self-belief, in a way that doesn't feel forced or part of toxic positivity. You're able to instil it in others in a way that feels genuine and makes your clients feel such a huge sense of achievement.\""), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-name"
+  }, "Jaydee Shamsuddin-Roberts"), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-role"
+  }, "Psychological Wellbeing Practitioner \xB7 Founder, Shades of Psych")), /*#__PURE__*/React.createElement("section", {
+    className: "c-testimonial-single reveal"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-quote"
+  }, "\"Her advice and motivation played a huge role in helping me get to where I am today. Now I proudly run my own company.\""), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-name"
+  }, "Keerthi Swetha"), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-role"
+  }, "Founder, Kays Production")), /*#__PURE__*/React.createElement("section", {
+    className: "c-testimonial-single reveal"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-quote"
+  }, "\"I can't recommend her enough for the work she does, she pours her heart and soul into it and she's so so impactful.\""), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-name"
+  }, "Melodie Grace"), /*#__PURE__*/React.createElement("p", {
+    className: "c-testimonial-role"
+  }, "Personal Trainer")), /*#__PURE__*/React.createElement("section", {
     className: "cc-logos reveal"
   }, /*#__PURE__*/React.createElement("p", {
     className: "cc-logos-label"
@@ -10984,7 +11004,7 @@ function TestimonialsPage() {
   }, "Book a Free Introductory Call")), /*#__PURE__*/React.createElement(MobileSticky, {
     title: "Book an Introductory Call",
     sub: "Free \xB7 30 minutes",
-    cta: "Book Now"
+    cta: "Book a call"
   }));
 }
 
@@ -11137,7 +11157,7 @@ function ContactPage() {
   }, "30 minutes. Free. An honest recommendation.")), /*#__PURE__*/React.createElement(MobileSticky, {
     title: "Free Introductory Call",
     sub: "30 mins \xB7 Free \xB7 An honest recommendation",
-    cta: "Book Now"
+    cta: "Book a call"
   }));
 }
 Object.assign(window, {
@@ -11237,8 +11257,8 @@ function BlogPage() {
     rel: "noopener noreferrer"
   }, "Book a Free Introductory Call")), /*#__PURE__*/React.createElement(MobileSticky, {
     title: "Free Introductory Call",
-    sub: "30 minutes \xB7 Free \xB7 An honest recommendation",
-    cta: "Book Now"
+    sub: "Free 30-min Introductory Call",
+    cta: "Book a call"
   }));
 }
 
@@ -11255,6 +11275,10 @@ function BlogPostPage() {
     fetch('/api/blog/' + encodeURIComponent(slug)).then(r => r.ok ? r.json() : null).then(p => {
       setPost(p);
       if (p && p.title) document.title = p.title + ' | DK Coaching';
+      if (p && p.excerpt) {
+        const md = document.querySelector('meta[name="description"]');
+        if (md) md.setAttribute('content', p.excerpt);
+      }
     }).catch(() => setPost(null));
   }, []);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("article", {
@@ -11302,8 +11326,8 @@ function BlogPostPage() {
     className: "btn-terracotta"
   }, "Take the Audit")))), /*#__PURE__*/React.createElement(MobileSticky, {
     title: "Free Introductory Call",
-    sub: "30 minutes \xB7 Free \xB7 An honest recommendation",
-    cta: "Book Now"
+    sub: "Free 30-min Introductory Call",
+    cta: "Book a call"
   }));
 }
 Object.assign(window, {
